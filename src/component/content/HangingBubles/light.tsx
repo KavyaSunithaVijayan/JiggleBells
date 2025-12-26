@@ -9,11 +9,11 @@ function HangingBalls({ on, setOn }: HangingBallsProps) {
   console.log("on:", on);
   const COLORS = ["orange", "red", "green", "blue", "yellow", "purple"];
   const getLampCount = () => {
-    if (window.innerWidth < 640) return 27; // sm
-    if (window.innerWidth < 768) return 37; // md
-    if (window.innerWidth < 1024) return 50; // md
-    if (window.innerWidth < 1280) return 63; // md
-    if (window.innerWidth > 1280) return 67; // md
+    if (window.innerWidth < 640) return 21;
+    if (window.innerWidth < 768) return 37;
+    if (window.innerWidth < 1024) return 50;
+    if (window.innerWidth < 1280) return 63;
+    if (window.innerWidth > 1280) return 67;
   };
   const [lampCount, setLampCount] = useState(getLampCount);
   const [lamps, setLamps] = useState<
