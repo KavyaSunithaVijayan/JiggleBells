@@ -1,0 +1,135 @@
+@import "tailwindcss";
+@import "tailwindcss";
+
+/* custom animation */
+@keyframes swing {
+  0% {
+    transform: rotate(-40deg);
+  }
+  100% {
+    transform: rotate(-50deg);
+  }
+}
+
+.lamp-swing {
+  animation: swing 0.5s ease-in-out infinite alternate;
+  transform-origin: 100% 0%;
+}
+
+@layer components {
+  .tree-figure {
+    --size: 10vmin;
+    @apply grid place-items-center gap-[0.5vmin];
+    grid-template-rows: auto 1fr calc(var(--size) / 2);
+  }
+
+  /* STAR */
+  .star {
+    @apply relative;
+    inline-size: 0.3vmin;
+    block-size: calc(var(--size) / 3);
+    background: #fde047;
+    border-radius: 999px;
+    animation: star 1s steps(3) infinite;
+  }
+
+  .star::before,
+  .star::after {
+    content: "";
+    @apply absolute inset-0;
+    background: inherit;
+    border-radius: inherit;
+  }
+
+  .star::before {
+    rotate: 60deg;
+  }
+  .star::after {
+    rotate: 120deg;
+  }
+
+  /* TRUNK */
+  .trunk {
+    margin-top: 1vmin;
+    inline-size: calc(var(--size) / 3);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    background: conic-gradient(
+      from -0.65deg at center top,
+      #55280c 50%,
+      #451a03 50%
+    );
+    animation: wiggle 2s steps(2) alternate infinite;
+  }
+
+  /* TREE BODY */
+  .tree {
+    @apply relative grid justify-items-center;
+  }
+
+  .tree > div {
+    --offset: 97%;
+    background: radial-gradient(circle at top left, transparent, #065f46 88%),
+      conic-gradient(from -10deg at center 0%, #059669 50%, transparent 50%);
+    inline-size: calc(var(--size) * sqrt(var(--i)));
+    aspect-ratio: 1 / cos(30deg);
+    clip-path: polygon(
+      49% 0%,
+      0 100%,
+      10% var(--offset),
+      20% 100%,
+      30% var(--offset),
+      40% 100%,
+      50% var(--offset),
+      60% 100%,
+      70% var(--offset),
+      80% 100%,
+      90% var(--offset),
+      100% 100%
+    );
+    animation: wiggle 3s calc(var(--i) * -0.2s) steps(2) alternate infinite;
+  }
+
+  .tree > div + div {
+    margin-top: calc((var(--size) * -0.35) * sqrt(var(--i)));
+  }
+
+  /* LIGHTS */
+  .lights {
+    position: relative;
+    inline-size: calc(var(--size) * 2);
+    animation: wiggle 1s steps(2) alternate infinite;
+  }
+
+  .lights::after {
+    content: "";
+    @apply absolute inset-0;
+    filter: blur(4px);
+    animation: blink 2s steps(1) infinite;
+  }
+}
+
+/* Animations */
+@keyframes star {
+  to {
+    rotate: 55deg;
+  }
+}
+
+@keyframes wiggle {
+  0% {
+    transform: translate(1px, -1px);
+  }
+  50% {
+    rotate: -1deg;
+  }
+  100% {
+    transform: translate(0, 1px);
+  }
+}
+
+@keyframes blink {
+  50%,
+  100% {
+    opacity: 0;
+  }
+}

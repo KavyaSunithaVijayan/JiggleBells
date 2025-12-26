@@ -1,0 +1,80 @@
+@layer components {
+  .star {
+    @apply relative col-span-1 row-span-1 rounded-full;
+    inline-size: 0.3vmin;
+    block-size: calc(var(--size) / 3);
+    background: #fde047;
+    animation: star 1s steps(3) infinite;
+  }
+
+  .star::before,
+  .star::after {
+    content: "";
+    @apply absolute inset-0 rounded-full;
+    background: inherit;
+  }
+
+  .star::before {
+    rotate: 60deg;
+  }
+  .star::after {
+    rotate: 120deg;
+  }
+
+  .trunk {
+    grid-row: 2 / -1;
+    margin-top: 1vmin;
+    inline-size: calc(var(--size) / 3);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    background: conic-gradient(
+      from -0.65deg at center top,
+      #55280c 50%,
+      #451a03 50%
+    );
+    animation: wiggle 2s steps(2) alternate infinite;
+  }
+
+  .tree {
+    @apply relative grid justify-items-center;
+    grid-row: 2;
+  }
+
+  .tree > div {
+    background: radial-gradient(circle at top left, transparent, #065f46 88%),
+      conic-gradient(from -10deg at center 0%, #059669 50%, transparent 50%);
+    inline-size: calc(var(--size) * sqrt(var(--i)));
+    aspect-ratio: 1 / cos(30deg);
+    clip-path: polygon(
+      49% 0%,
+      0 100%,
+      10% 97%,
+      20% 100%,
+      30% 97%,
+      40% 100%,
+      50% 97%,
+      60% 100%,
+      70% 97%,
+      80% 100%,
+      90% 97%,
+      100% 100%
+    );
+    animation: wiggle 3s calc(var(--i) * -0.2s) steps(2) alternate infinite;
+  }
+
+  .tree > div + div {
+    margin-top: calc((var(--size) * -0.35) * sqrt(var(--i)));
+  }
+
+  .lights {
+    grid-row: 2;
+    inline-size: calc(var(--size) * 2);
+    animation: wiggle 1s steps(2) alternate infinite;
+  }
+
+  .lights::after {
+    content: "";
+    @apply absolute inset-0;
+    filter: blur(4px);
+    animation: blink 2s steps(1) infinite;
+  }
+}
